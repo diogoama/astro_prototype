@@ -2,14 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
-  <meta name="theme-color" content="#0000C2" />
-  <title>ASTRO Prototype</title>
-  <link rel="stylesheet" href="app.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#04050F" />
+  <meta name="description" content="ASTRO: GPS lap timing for karting, motorcycles and cars. Live timing with speed-delta, a live pit wall in any browser and telemetry analysis. Phone GPS, external GPS receivers or the ASTRO 25 Hz lap timer." />
+  <meta property="og:title" content="ASTRO · GPS lap timing, live pit wall and analysis" />
+  <meta property="og:description" content="Live timing, a pit wall for your crew and real telemetry analysis. Start with your phone, race with ASTRO." />
+  <meta property="og:image" content="assets/astro_mark.png" />
+  <title>ASTRO</title>
   <link rel="icon" href="assets/astro_mark.png" />
+  <script>
+    // Router: the app runs inside the Android shell and for ?app / ?live (pit wall) links; the landing page otherwise.
+    (function () {
+      var q = location.search, app = !!window.AstroNative || /[?&](app|live|pit)(=|&|$)/.test(q) || location.hash === '#app';
+      var b = app ? 'app' : 'landing';
+      if (app) {
+        document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no');
+        document.querySelector('meta[name=theme-color]').setAttribute('content', '#0000C2');
+        document.title = 'ASTRO';
+      }
+      document.documentElement.className = b;
+      document.write('<link rel="stylesheet" href="' + b + '.css"><script src="' + b + '.js" defer><\/script>');
+    })();
+  </script>
 </head>
 <body>
   <div id="app"></div>
-  <script src="app.js"></script>
 </body>
 </html>
